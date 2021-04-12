@@ -72,7 +72,6 @@ public class HomepageFragment extends Fragment {
         featuredRecycler.setHasFixedSize(true);
         featuredRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-
         HomeActivity homeActivity = (HomeActivity) getActivity();
         homeActivity.getFeaturedTask().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

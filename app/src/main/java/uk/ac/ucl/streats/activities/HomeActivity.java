@@ -14,8 +14,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 import uk.ac.ucl.streats.R;
 
@@ -29,6 +33,8 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseFirestore db;
     private Task<DocumentSnapshot> profileTask, featuredTask, mostViewedTask;
+    private Task<QuerySnapshot> restaurantCategoriesTask;
+    private HashMap<String,ArrayList<String>> restaurantCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +88,26 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        restaurantCategories = new HashMap<>();
+        restaurantCategoriesTask = db.collection("restaurants").get();
+        restaurantCategoriesTask.addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot query = task.getResult();
+                List<DocumentSnapshot> restaurants = query.getDocuments();
+                for (DocumentSnapshot restaurant: restaurants) {
+                    String id = restaurant.getId();
+                    String cuisine = restaurant.getString("cuisine");
+
+                    if (restaurantCategories.containsKey(cuisine)) {
+                        restaurantCategories.get(cuisine).add(id);
+                    }
+                    else {
+                        restaurantCategories.put(cuisine, new ArrayList<>(Collections.singletonList(id)));
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -100,6 +126,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public Task<DocumentSnapshot> getMostViewedTask() {
         return mostViewedTask;
+    }
+
+    public Task<QuerySnapshot> getRestaurantCategoriesTask() {
+        return restaurantCategoriesTask;
     }
 
     public String getName() {
@@ -136,6 +166,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public ArrayList<String> getFavourites() {
         return favourites;
+    }
+
+    public HashMap<String, ArrayList<String>> getRestaurantCategories() {
+        return restaurantCategories;
     }
 
     public void removeFromFavourites(String restaurantID) {

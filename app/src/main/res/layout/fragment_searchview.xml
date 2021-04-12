@@ -7,14 +7,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/filter_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/filter_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -23,56 +23,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0" />
 
-
-        <TextView
-            android:id="@+id/hello_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:textColor="@color/black"
-            android:textSize="36sp"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintHorizontal_bias="0"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_icon" />
-
-        <EditText
+        <SearchView
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/search"
-            android:textSize="14sp"
-            android:paddingStart="20dp"
+            android:queryHint="Search for Restaurants"
+            android:iconifiedByDefault="false"
+            android:paddingLeft="0dp"
             app:layout_constraintVertical_bias="0"
-            app:layout_constraintWidth_percent=".7"
+            app:layout_constraintWidth_percent=".9"
             app:layout_constraintHorizontal_bias="0"
-            android:paddingTop="15dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:elevation="4dp"
             android:background="@drawable/search_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/hello_text"
-            app:layout_constraintTop_toBottomOf="@+id/hello_text"
-            android:layout_marginTop="15dp"
-            tools:ignore="RtlSymmetry"
-            android:inputType="text" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/search_home"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toEndOf="@+id/search"
-            app:layout_constraintTop_toTopOf="@+id/search"
-            app:layout_constraintVertical_bias=".5" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filter_icon"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_1"
@@ -103,4 +73,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
-

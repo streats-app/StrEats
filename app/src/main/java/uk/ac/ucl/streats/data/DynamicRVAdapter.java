@@ -31,16 +31,23 @@ public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.Dyna
         this.dynamicRVModels = dynamicRVModels;
     }
 
+    public void filterList(ArrayList<DynamicRVModel> filterllist) {
+        dynamicRVModels = filterllist;
+        notifyDataSetChanged();
+    }
+
     public class DynamicRvHolder extends RecyclerView.ViewHolder {
 
         public ImageView imageView;
-        public TextView textView;
+        public TextView title;
+        public TextView details;
         ConstraintLayout constraintLayout;
 
         public DynamicRvHolder(@NonNull View itemView, final OnItemClickListner mListner) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
-            textView = itemView.findViewById(R.id.name);
+            title = itemView.findViewById(R.id.name);
+            details = itemView.findViewById(R.id.details);
             constraintLayout = itemView.findViewById(R.id.constraintLayout);
 
             itemView.setOnClickListener(v -> {
@@ -64,8 +71,11 @@ public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.Dyna
     @Override
     public void onBindViewHolder(@NonNull DynamicRVAdapter.DynamicRvHolder holder, int position) {
         DynamicRVModel currentItem = dynamicRVModels.get(position);
-        holder.imageView.setImageResource(currentItem.getImage());
-        holder.textView.setText(currentItem.getName());
+
+        currentItem.getInfoTask().addOnSuccessListener(document -> {
+            holder.title.setText(currentItem.getName());
+            holder.details.setText(currentItem.getDetails());
+        });
     }
 
     @Override

@@ -1,6 +1,7 @@
 package uk.ac.ucl.streats.data;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,139 +10,138 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import uk.ac.ucl.streats.R;
+import uk.ac.ucl.streats.activities.HomeActivity;
 
-public class StaticRvAdapter extends RecyclerView.Adapter<StaticRvAdapter.StaticRVViewHolder>{
+public class StaticRvAdapter extends RecyclerView.Adapter<StaticRvAdapter.StaticRVViewHolder> {
 
     private ArrayList<StaticRvModel> items;
     int row_index = -1;
     UpdateRecyclerView updateRecyclerView;
+    Activity activity;
+    HashMap<String, ArrayList<String>> restaurantCategories;
     boolean check = true;
     boolean select = true;
+    public final int AMERICAN = 0;
+    public final String AMERICAN_CUISINE = "American";
+    public final int BRITISH = 1;
+    public final String BRITISH_CUISINE = "British";
+    public final int CHINESE = 2;
+    public final String CHINESE_CUISINE = "Chinese";
+    public final int DESSERT = 3;
+    public final String DESSERT_CUISINE = "Dessert";
+    public final int INDIAN = 4;
+    public final String INDIAN_CUISINE = "Indian";
+    public final int ITALIAN = 5;
+    public final String ITALIAN_CUISINE = "Italian";
+    public final int JAPANESE = 6;
+    public final String JAPANESE_CUISINE = "Japanese";
+    public final int KOREAN = 7;
+    public final String KOREAN_CUISINE = "Korean";
+    public final int MALAYSIAN = 8;
+    public final String MALAYSIAN_CUISINE = "Malaysian";
+    public final int VEGETARIAN = 9;
+    public final String VEGETARIAN_CUISINE = "Vegetarian";
 
-    public StaticRvAdapter(ArrayList<StaticRvModel> items, Activity activity, UpdateRecyclerView updateRecyclerView) {
+
+    public StaticRvAdapter(ArrayList<StaticRvModel> items, Activity activity, HashMap<String, ArrayList<String>> restaurantCategories, UpdateRecyclerView updateRecyclerView) {
         this.items = items;
+        this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
+        this.restaurantCategories = restaurantCategories;
     }
 
     @NonNull
     @Override
     public StaticRVViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.static_rv_item,parent,false);
-        return new StaticRVViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.static_rv_item, parent, false);
+        StaticRVViewHolder staticRVViewHolder = new StaticRVViewHolder(view);
+        return staticRVViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StaticRVViewHolder holder, final int position) {
-        StaticRvModel currentItem = items.get(position);
+    public void onBindViewHolder(@NonNull StaticRVViewHolder holder, final int category) {
+        StaticRvModel currentItem = items.get(category);
+
         holder.imageView.setImageResource(currentItem.getImage());
         holder.textView.setText(currentItem.getText());
 
-        if (check){
-
-            ArrayList<DynamicRVModel> items = new ArrayList<>();
-            items.add(new DynamicRVModel("burger 1", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 2", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 3", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 4", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 5", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 6", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 7", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 8", R.drawable.american_icon,0));
-            items.add(new DynamicRVModel("burger 9", R.drawable.american_icon,0));
-
-            updateRecyclerView.callback(position, items);
-
+        if (check) {
+            ArrayList<DynamicRVModel> items = getCategoryElements(category);
+            updateRecyclerView.callback(category, items);
             check = false;
         }
 
-        holder.linearLayout.setOnClickListener(v -> {
-            row_index = position;
-            notifyDataSetChanged();
-
-            if (position==0){
-
-                ArrayList<DynamicRVModel> items = new ArrayList<>();
-                items.add(new DynamicRVModel("burger 1", R.drawable.american_icon,0));
-                items.add(new DynamicRVModel("burger 2", R.drawable.american_icon,0));
-                items.add(new DynamicRVModel("burger 3", R.drawable.american_icon,0));
-                items.add(new DynamicRVModel("burger 4", R.drawable.american_icon,0));
-                items.add(new DynamicRVModel("burger 5", R.drawable.american_icon,0));
-
-                updateRecyclerView.callback(position, items);
-
-            }
-
-            else if (position==1){
-
-                ArrayList<DynamicRVModel> items = new ArrayList<>();
-                items.add(new DynamicRVModel("pizza 1", R.drawable.british_icon,1));
-                items.add(new DynamicRVModel("pizza 2", R.drawable.british_icon,1));
-                items.add(new DynamicRVModel("pizza 3", R.drawable.british_icon,1));
-                items.add(new DynamicRVModel("pizza 4", R.drawable.british_icon,1));
-                items.add(new DynamicRVModel("pizza 5", R.drawable.british_icon,1));
-
-                updateRecyclerView.callback(position, items);
-
-            }
-
-            else if (position==2){
-
-                ArrayList<DynamicRVModel> items = new ArrayList<>();
-                items.add(new DynamicRVModel("fries 1", R.drawable.chinese_icon,2));
-                items.add(new DynamicRVModel("fries 2", R.drawable.chinese_icon,2));
-                items.add(new DynamicRVModel("fries 3", R.drawable.chinese_icon,2));
-                items.add(new DynamicRVModel("fries 4", R.drawable.chinese_icon,2));
-                items.add(new DynamicRVModel("fries 5", R.drawable.chinese_icon,2));
-
-                updateRecyclerView.callback(position, items);
-
-            }
-
-            else if (position==3){
-
-                ArrayList<DynamicRVModel> items = new ArrayList<>();
-                items.add(new DynamicRVModel("sandwich 1", R.drawable.italian_icon,3));
-                items.add(new DynamicRVModel("sandwich 2", R.drawable.italian_icon,3));
-                items.add(new DynamicRVModel("sandwich 3", R.drawable.italian_icon,3));
-                items.add(new DynamicRVModel("sandwich 4", R.drawable.italian_icon,3));
-                items.add(new DynamicRVModel("sandwich 5", R.drawable.italian_icon,3));
-
-                updateRecyclerView.callback(position, items);
-
-            }
-
-            else if (position==4){
-
-                ArrayList<DynamicRVModel> items = new ArrayList<>();
-                items.add(new DynamicRVModel("dessert 1", R.drawable.dessert_icon,4));
-                items.add(new DynamicRVModel("dessert 2", R.drawable.dessert_icon,4));
-                items.add(new DynamicRVModel("dessert 3", R.drawable.dessert_icon,4));
-                items.add(new DynamicRVModel("dessert 4", R.drawable.dessert_icon,4));
-                items.add(new DynamicRVModel("dessert 5", R.drawable.dessert_icon,4));
-
-                updateRecyclerView.callback(position, items);
-
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                row_index = category;
+                notifyDataSetChanged();
+                updateRecyclerView.callback(category, getCategoryElements(category));
             }
         });
 
-        if (select){
-            if (position==0)
+        if (select) {
+            if (category == 0)
                 holder.linearLayout.setBackgroundResource(R.drawable.static_rv_selected_bg);
-            select=false;
-        }
-        else {
-            if (row_index == position){
+            select = false;
+        } else {
+            if (row_index == category) {
                 holder.linearLayout.setBackgroundResource(R.drawable.static_rv_selected_bg);
-            }
-            else {
+            } else {
                 holder.linearLayout.setBackgroundResource(R.drawable.static_rv_bg);
             }
         }
+    }
+
+    private ArrayList<DynamicRVModel> getCategoryElements(int category) {
+        ArrayList<DynamicRVModel> items = new ArrayList<>();
+        String cuisine;
+        switch (category) {
+            case AMERICAN:
+                cuisine = AMERICAN_CUISINE;
+                break;
+            case BRITISH:
+                cuisine = BRITISH_CUISINE;
+                break;
+            case CHINESE:
+                cuisine = CHINESE_CUISINE;
+                break;
+            case DESSERT:
+                cuisine = DESSERT_CUISINE;
+                break;
+            case INDIAN:
+                cuisine = INDIAN_CUISINE;
+                break;
+            case ITALIAN:
+                cuisine = ITALIAN_CUISINE;
+                break;
+            case JAPANESE:
+                cuisine = JAPANESE_CUISINE;
+                break;
+            case KOREAN:
+                cuisine = KOREAN_CUISINE;
+                break;
+            case MALAYSIAN:
+                cuisine = MALAYSIAN_CUISINE;
+                break;
+            case VEGETARIAN:
+                cuisine = VEGETARIAN_CUISINE;
+                break;
+            default:
+                cuisine = AMERICAN_CUISINE;
+        }
+
+        for (String id : restaurantCategories.get(cuisine))
+            items.add(new DynamicRVModel(id));
+
+        return items;
     }
 
     @Override
@@ -149,9 +149,10 @@ public class StaticRvAdapter extends RecyclerView.Adapter<StaticRvAdapter.Static
         return items.size();
     }
 
-    public static class StaticRVViewHolder extends RecyclerView.ViewHolder{
+    public static class StaticRVViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
+        public String id;
+        public TextView textView;
         ImageView imageView;
         LinearLayout linearLayout;
 
@@ -160,6 +161,17 @@ public class StaticRvAdapter extends RecyclerView.Adapter<StaticRvAdapter.Static
             imageView = itemView.findViewById(R.id.image);
             textView = itemView.findViewById(R.id.text);
             linearLayout = itemView.findViewById(R.id.linearLayout);
+
+            // open restaurant card on click
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("restaurantId", id);
+
+                    Navigation.findNavController(v).navigate(R.id.action_to_restaurantPageFragment, bundle);
+                }
+            });
         }
     }
 }
