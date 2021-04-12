@@ -61,24 +61,21 @@ public class MapViewFragment extends Fragment {
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
 
-    private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            map = googleMap;
+            markers = new ArrayList<>();
+
             setUpSearchBar();
 
-            map = googleMap;
-
-            FirebaseAuth fAuth = FirebaseAuth.getInstance();
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            String userID = fAuth.getUid();
             Task<QuerySnapshot> restaurantCollection = db.collection("restaurants").get();
 
-            markers = new ArrayList<>();
             restaurantCollection.addOnCompleteListener(task -> {
                         if(task.isSuccessful())
                         {
@@ -93,14 +90,14 @@ public class MapViewFragment extends Fragment {
                     });
 
             map.setOnInfoWindowClickListener(marker -> {
-                Bundle bundle = new Bundle();
-                bundle.putString("restaurantId", (String) marker.getTag());
+                if (!marker.getTag().equals("currentLocation")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("restaurantId", (String) marker.getTag());
 
-                Navigation.findNavController(getView()).navigate(R.id.action_mapView_to_restaurantPageFragment, bundle);
+                    Navigation.findNavController(getView()).navigate(R.id.action_mapView_to_restaurantPageFragment, bundle);
+                }
             });
-
             updateLocationUI();
-            getDeviceLocation();
         }
     };
 
@@ -195,11 +192,6 @@ public class MapViewFragment extends Fragment {
     }
 
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -209,6 +201,7 @@ public class MapViewFragment extends Fragment {
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
+        getDeviceLocation();
     }
 
     @Override
@@ -222,7 +215,6 @@ public class MapViewFragment extends Fragment {
                 locationPermissionGranted = true;
             }
         }
-        updateLocationUI();
     }
 
     private void updateLocationUI() {
@@ -245,10 +237,6 @@ public class MapViewFragment extends Fragment {
     }
 
     private void getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
@@ -260,6 +248,7 @@ public class MapViewFragment extends Fragment {
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(lastKnownLocation.getLatitude(),
                                             lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            addCurrentLocationPin();
                         }
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.");
@@ -273,6 +262,17 @@ public class MapViewFragment extends Fragment {
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage(), e);
         }
+    }
+
+    private void addCurrentLocationPin()
+    {
+        LatLng currentLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+        Marker marker = map.addMarker(new MarkerOptions().position(currentLocation)
+                .title("Current Location")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        marker.setTag("currentLocation");
+        markers.add(marker);
+
     }
 
     // Levenshtein Algorithm

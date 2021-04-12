@@ -114,9 +114,7 @@ public class SearchViewFragment extends Fragment implements UpdateRecyclerView {
             }
         }
 
-        if (filteredlist.isEmpty()) {
-            Toast.makeText(getContext(), "Not found!", Toast.LENGTH_SHORT).show();
-        } else {
+        if (!filteredlist.isEmpty()) {
             dynamicRVAdapter.filterList(filteredlist);
         }
     }
