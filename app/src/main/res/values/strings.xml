@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">StrEats</string>
+    <string name="covidInfo">In line with the UK government\'s COVID-19 guidelines, when visiting
+        these small eateries for takeaway, please put on your mask and ensure that you are socially
+        distanced from people. Avoid touching your face or any unnecessary surfaces. Do not travel
+        outside of your local area for takeaway services and keep your numbers to a minimum while
+        ordering takeaway. Upon arriving back home, wash your hands thoroughly with soap and ensure
+        surfaces are wiped clean after consuming the food.
+    </string>
+    <string name="about">StrEats first sprang to life on a cold Saturday evening in Central London
+        during the 3rd UK lockdown. Streets were empty, retail shops were shut and small fool
+        businesses all across Central London were slowly closing down one by one. 4 university
+        students studying Computer Science visited a small eatery for takeaway and were deeply
+        taken aback by the struggles of the small eatery that we had visited. The obstacles and
+        challenges of the COVID-19 pandemic suddenly became all too real.
+        \n\n
+        Wanting to use our knowledge to help these small eateries through the pandemic and lockdown,
+        we came up with StrEats! StrEats, a combination of the words "Street" and "Eats", is a
+        mobile application that allows you to easily locate small food eateries in the city. Our
+        hope is to raise awareness about the current situation of small businesses and encourage
+        more people to order from these… 
+    </string>
+    <string name="home_button">Home</string>
+    <string name="search_button">Search</string>
+    <string name="map_button">Map</string>
+    <string name="profile_button">Profile</string>
+
+    <!-- Home Bars-->
+    <string name="boroughs">Boroughs</string>
+    <string name="nearby">Nearby</string>
+    <string name="suggest">Suggest</string>
+
+    <!-- Titles and Descriptions-->
+    <string name="featured_locations">Featured Locations</string>
+    <string name="featured_locations_description">All the restaurants that we love and recommend that you eat at!</string>
+    <string name="most_viewed_locations">Popular Locations</string>
+    <string name="categories">Categories</string>
+    <string name="american">American</string>
+
+    <string name="search">Search</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register_hint">Don\'t have an account yet?</string>
+    <string name="address">Address</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="register">Register</string>
+    <string name="category">Category</string>
+    <string name="details">Details</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="bio">Bio</string>
+    <string name="save_changes">SAVE CHANGES</string>
+    <string name="separator">|</string>
+    <string name="change_header">Change Header</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="favourites">Favourites</string>
+    <string name="bookmarks">Bookmarks</string>
+
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homepage">
+
+    <fragment
+        android:id="@+id/profilePage"
+        android:name="uk.ac.ucl.streats.fragments.ProfilePageFragment"
+        android:label="fragment_profilepage"
+        tools:layout="@layout/fragment_profilepage" >
+        <action
+            android:id="@+id/action_profilePage_to_editProfile"
+            app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_profilePage_to_restaurantListFragment"
+            app:destination="@id/restaurantListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapView"
+        android:name="uk.ac.ucl.streats.fragments.MapViewFragment"
+        android:label="fragment_mapview"
+        tools:layout="@layout/fragment_mapview" >
+        <action
+            android:id="@+id/action_mapView_to_restaurantPageFragment"
+            app:destination="@id/restaurantPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchView"
+        android:name="uk.ac.ucl.streats.fragments.SearchViewFragment"
+        android:label="fragment_searchview"
+        tools:layout="@layout/fragment_searchview">
+        <action
+            android:id="@+id/action_listView_to_restaurantPageFragment"
+            app:destination="@id/restaurantPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homepage"
+        android:name="uk.ac.ucl.streats.fragments.HomepageFragment"
+        android:label="fragment_homepage"
+        tools:layout="@layout/fragment_homepage" >
+        <action
+            android:id="@+id/action_to_restaurantPageFragment"
+            app:destination="@id/restaurantPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="uk.ac.ucl.streats.fragments.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/restaurantPageFragment"
+        android:name="uk.ac.ucl.streats.fragments.RestaurantPageFragment"
+        android:label="fragment_restaurant_page"
+        tools:layout="@layout/fragment_restaurant_page" >
+        <argument
+            android:name="restaurantId"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantListFragment"
+        android:name="uk.ac.ucl.streats.fragments.RestaurantListFragment"
+        android:label="fragment_restaurant_list"
+        tools:layout="@layout/fragment_restaurant_list" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_to_restaurantPageFragment"
+            app:destination="@id/restaurantPageFragment" />
+    </fragment>
+</navigation>

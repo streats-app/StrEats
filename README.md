@@ -1,2 +1,2 @@
 # StrEats
-App to support small eateries in London
+Android app to support small eateries in London

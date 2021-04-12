@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homepage"
+        android:enabled="true"
+        android:icon="@drawable/home_icon"
+        android:title="@string/home_button"/>
+    <item
+        android:id="@+id/searchView"
+        android:enabled="true"
+        android:icon="@drawable/search_icon"
+        android:title="@string/search_button"/>
+    <item
+        android:id="@+id/mapView"
+        android:enabled="true"
+        android:icon="@drawable/map_icon"
+        android:title="@string/map_button"/>
+    <item
+        android:id="@+id/profilePage"
+        android:enabled="true"
+        android:icon="@drawable/profile_icon"
+        android:title="@string/profile_button"/>
+
+</menu>
