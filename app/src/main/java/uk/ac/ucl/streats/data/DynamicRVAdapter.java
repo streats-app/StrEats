@@ -18,6 +18,17 @@ import uk.ac.ucl.streats.R;
 
 public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.DynamicRvHolder>{
 
+    public final String AMERICAN = "American";
+    public final String BRITISH = "British";
+    public final String CHINESE = "Chinese";
+    public final String DESSERT = "Dessert";
+    public final String INDIAN = "Indian";
+    public final String ITALIAN = "Italian";
+    public final String JAPANESE = "Japanese";
+    public final String KOREAN = "Korean";
+    public final String MALAYSIAN = "Malaysian";
+    public final String VEGETARIAN = "Vegetarian";
+
     public ArrayList<DynamicRVModel> dynamicRVModels;
     private OnItemClickListner mListner;
 
@@ -44,14 +55,12 @@ public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.Dyna
         public ImageView imageView;
         public TextView title;
         public TextView details;
-        ConstraintLayout constraintLayout;
 
         public DynamicRvHolder(@NonNull View itemView, final OnItemClickListner mListner) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.image);
+            imageView = itemView.findViewById(R.id.dynamic_card_image);
             title = itemView.findViewById(R.id.name);
             details = itemView.findViewById(R.id.details);
-            constraintLayout = itemView.findViewById(R.id.constraintLayout);
 
             itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
@@ -77,6 +86,41 @@ public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.Dyna
         currentItem.getInfoTask().addOnSuccessListener(document -> {
             holder.title.setText(currentItem.getName());
             holder.details.setText(currentItem.getDetails());
+
+            switch (currentItem.getCategory()) {
+                case AMERICAN:
+                    holder.imageView.setImageResource(R.drawable.american_icon);
+                    break;
+                case BRITISH:
+                    holder.imageView.setImageResource(R.drawable.british_icon);
+                    break;
+                case CHINESE:
+                    holder.imageView.setImageResource(R.drawable.chinese_icon);
+                    break;
+                case DESSERT:
+                    holder.imageView.setImageResource(R.drawable.dessert_icon);
+                    break;
+                case INDIAN:
+                    holder.imageView.setImageResource(R.drawable.indian_icon);
+                    break;
+                case ITALIAN:
+                    holder.imageView.setImageResource(R.drawable.italian_icon);
+                    break;
+                case JAPANESE:
+                    holder.imageView.setImageResource(R.drawable.japanese_icon);
+                    break;
+                case KOREAN:
+                    holder.imageView.setImageResource(R.drawable.korean_icon);
+                    break;
+                case MALAYSIAN:
+                    holder.imageView.setImageResource(R.drawable.malaysian_icon);
+                    break;
+                case VEGETARIAN:
+                    holder.imageView.setImageResource(R.drawable.vegetarian_icon);
+                    break;
+                default:
+                    holder.imageView.setImageResource(R.drawable.american_icon);
+            }
         });
     }
 

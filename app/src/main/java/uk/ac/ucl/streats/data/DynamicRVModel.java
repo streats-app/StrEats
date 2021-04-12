@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DynamicRVModel {
 
-    String id, name, details;
+    String id, name, details, category;
     private FirebaseFirestore db;
     private Task<DocumentSnapshot> infoTask;
 
@@ -22,6 +22,7 @@ public class DynamicRVModel {
         infoTask.addOnSuccessListener(document -> {
             name = document.getString("name");
             details = document.getString("location");
+            category = document.getString("cuisine");
         });
     }
 
@@ -35,6 +36,10 @@ public class DynamicRVModel {
 
     public String getId() {
         return id;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public Task<DocumentSnapshot> getInfoTask() {

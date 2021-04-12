@@ -11,10 +11,9 @@
     android:id="@+id/constraintLayout">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/dynamic_card_image"
         android:layout_width="100dp"
         android:layout_height="90dp"
-        android:src="@drawable/american_icon"
         android:elevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

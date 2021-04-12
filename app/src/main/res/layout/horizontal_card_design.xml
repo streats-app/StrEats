@@ -13,10 +13,9 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/mv_image"
+            android:id="@+id/horizontal_card_restaurant_photo"
             android:layout_width="100dp"
             android:layout_height="150dp"
-            android:src="@drawable/kor_cocobibi"
             android:scaleType="centerCrop"/>
 
         <TextView
@@ -24,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/mv_image"
+            android:layout_toEndOf="@id/horizontal_card_restaurant_photo"
             android:fontFamily="@font/baloo"
             android:text=""
             android:textColor="#272727"
@@ -37,7 +36,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_below="@id/most_viewed_title"
-            android:layout_toEndOf="@id/mv_image"
+            android:layout_toEndOf="@id/horizontal_card_restaurant_photo"
             android:layout_marginStart="10dp"
             android:rating="4"/>
 
@@ -46,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/most_viewed_rating"
-            android:layout_toEndOf="@id/mv_image"
+            android:layout_toEndOf="@id/horizontal_card_restaurant_photo"
             android:padding="10dp"
             android:text="" />
 

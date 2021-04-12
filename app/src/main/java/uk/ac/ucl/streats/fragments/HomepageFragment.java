@@ -61,7 +61,7 @@ public class HomepageFragment extends Fragment {
                     mostViewedLocations.add(new CardHelperClass(id));
                 }
 
-                adapter = new HorizontalCardAdapter(mostViewedLocations);
+                adapter = new HorizontalCardAdapter(mostViewedLocations, getActivity());
                 mostViewedRecycler.setAdapter(adapter);
             }
         });
@@ -80,7 +80,7 @@ public class HomepageFragment extends Fragment {
                     featuredLocations.add(new CardHelperClass(id));
                 }
 
-                adapter = new VerticalCardAdapter(featuredLocations);
+                adapter = new VerticalCardAdapter(featuredLocations, getActivity());
                 featuredRecycler.setAdapter(adapter);
             }
         });

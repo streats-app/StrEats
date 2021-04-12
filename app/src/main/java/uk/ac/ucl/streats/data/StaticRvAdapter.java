@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import uk.ac.ucl.streats.R;
-import uk.ac.ucl.streats.activities.HomeActivity;
 
 public class StaticRvAdapter extends RecyclerView.Adapter<StaticRvAdapter.StaticRVViewHolder> {
 
@@ -158,7 +157,7 @@ public class StaticRvAdapter extends RecyclerView.Adapter<StaticRvAdapter.Static
 
         public StaticRVViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.image);
+            imageView = itemView.findViewById(R.id.dynamic_card_image);
             textView = itemView.findViewById(R.id.text);
             linearLayout = itemView.findViewById(R.id.linearLayout);
 

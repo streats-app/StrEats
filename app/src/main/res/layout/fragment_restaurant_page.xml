@@ -20,8 +20,7 @@
                 android:id="@+id/restaurant_photo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/kor_seoulbakery" />
+                android:scaleType="centerCrop" />
 
             <View
                 android:id="@+id/divider9"

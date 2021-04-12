@@ -10,20 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import uk.ac.ucl.streats.R;
 import uk.ac.ucl.streats.activities.HomeActivity;
+import uk.ac.ucl.streats.data.GlideApp;
 
 
 public class RestaurantPageFragment extends Fragment {
 
     private String id;
+    private ImageView restaurant_photo;
     private TextView restaurant_name, restaurant_location, restaurant_operating_hours,
             restaurant_website, restaurant_cuisine, restaurant_description;
+    private FirebaseStorage firebaseStorage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,9 @@ public class RestaurantPageFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         FragmentActivity fa = getActivity();
+        firebaseStorage = FirebaseStorage.getInstance();
 
+        restaurant_photo = fa.findViewById(R.id.restaurant_photo);
         restaurant_name = fa.findViewById(R.id.restaurant_name);
         restaurant_location = fa.findViewById(R.id.restaurant_location);
         restaurant_operating_hours = fa.findViewById(R.id.restaurant_operating_hours);
@@ -55,6 +64,14 @@ public class RestaurantPageFragment extends Fragment {
         db.collection("restaurants").document(id).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
+
+                StorageReference storageRef = firebaseStorage.getReference().child("images/restaurants/"+id);
+                storageRef.getMetadata().addOnSuccessListener(storageMetadata -> GlideApp.with(getActivity())
+                        .load(storageRef)
+                        .signature(new MediaStoreSignature(storageMetadata.getContentType(),
+                                storageMetadata.getCreationTimeMillis(),
+                                0))
+                        .into(restaurant_photo));
 
                 restaurant_name.setText(document.getString("name"));
                 restaurant_location.setText(document.getString("location"));

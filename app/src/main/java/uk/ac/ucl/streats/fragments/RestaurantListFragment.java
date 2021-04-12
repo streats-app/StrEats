@@ -50,7 +50,7 @@ public class RestaurantListFragment extends Fragment {
 
         HomeActivity homeActivity = (HomeActivity) getActivity();
         ArrayList<CardHelperClass> restaurantList = new ArrayList<>();
-        adapter = new HorizontalCardAdapter(restaurantList);
+        adapter = new HorizontalCardAdapter(restaurantList, getActivity());
         restaurantListRecycler.setAdapter(adapter);
 
         homeActivity.getProfileTask().addOnCompleteListener(task -> {
