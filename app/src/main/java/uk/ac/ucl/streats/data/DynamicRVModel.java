@@ -33,6 +33,10 @@ public class DynamicRVModel {
         return details;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public Task<DocumentSnapshot> getInfoTask() {
         return infoTask;
     }

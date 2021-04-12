@@ -31,7 +31,6 @@ public class SearchViewFragment extends Fragment implements UpdateRecyclerView {
 
     ArrayList<DynamicRVModel> items = new ArrayList();
     DynamicRVAdapter dynamicRVAdapter;
-    int pos;
 
     public SearchViewFragment() {
         // Required empty public constructor
@@ -79,18 +78,19 @@ public class SearchViewFragment extends Fragment implements UpdateRecyclerView {
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView2.setAdapter(dynamicRVAdapter);
 
-        //setUpSearchBar();
+        setUpSearchBar();
     }
 
     @Override
     public void callback(int position, ArrayList<DynamicRVModel> items) {
+        this.items = items;
         dynamicRVAdapter = new DynamicRVAdapter(items);
         dynamicRVAdapter.notifyDataSetChanged();
         recyclerView2.setAdapter(dynamicRVAdapter);
     }
 
     public void setUpSearchBar(){
-        searchView = getView().findViewById(R.id.sv_location);
+        searchView = getView().findViewById(R.id.search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

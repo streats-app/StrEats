@@ -1,5 +1,6 @@
 package uk.ac.ucl.streats.data;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.Dyna
 
     public class DynamicRvHolder extends RecyclerView.ViewHolder {
 
+        public String id;
         public ImageView imageView;
         public TextView title;
         public TextView details;
@@ -51,12 +54,10 @@ public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.Dyna
             constraintLayout = itemView.findViewById(R.id.constraintLayout);
 
             itemView.setOnClickListener(v -> {
-                if (mListner!=null){
-                    int position = getBindingAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION){
-                        mListner.onItemClick(position);
-                    }
-                }
+                Bundle bundle = new Bundle();
+                bundle.putString("restaurantId", id);
+
+                Navigation.findNavController(v).navigate(R.id.action_listView_to_restaurantPageFragment, bundle);
             });
         }
     }
@@ -72,6 +73,7 @@ public class DynamicRVAdapter extends RecyclerView.Adapter<DynamicRVAdapter.Dyna
     public void onBindViewHolder(@NonNull DynamicRVAdapter.DynamicRvHolder holder, int position) {
         DynamicRVModel currentItem = dynamicRVModels.get(position);
 
+        holder.id = currentItem.getId();
         currentItem.getInfoTask().addOnSuccessListener(document -> {
             holder.title.setText(currentItem.getName());
             holder.details.setText(currentItem.getDetails());
